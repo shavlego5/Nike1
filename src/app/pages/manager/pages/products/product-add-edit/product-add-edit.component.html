@@ -1,0 +1,29 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" id="name" placeholder="Name" formControlName="name">
+  </div>
+  <div class="form-group">
+    <label for="description">Description</label>
+    <textarea type="text" class="form-control" id="description" placeholder="Description"
+              formControlName="description"></textarea>
+  </div>
+  <div class="form-group">
+    <label for="image">Image url</label>
+    <input type="text" class="form-control" id="image" placeholder="Image url" formControlName="image">
+  </div>
+  <div class="form-group">
+    <label for="description">Category</label>
+    <select class="form-select" formControlName="categoryId">
+      <option *ngFor="let category of categories$ | async" [value]="category.id">
+        {{category.name}}
+      </option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="price">Price</label>
+    <input type="number" class="form-control" id="price" placeholder="price" formControlName="price">
+  </div>
+  <button type="submit" class="btn btn-primary mt-3">Submit</button>
+</form>

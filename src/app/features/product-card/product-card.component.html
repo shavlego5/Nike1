@@ -1,0 +1,26 @@
+<div *ngIf="product && !isInSearchContainer; else isInSearch" class="card">
+  <i class="bi bi-plus-circle-fill" *appAuthAccess (click)="addToCart()"></i>
+  <p *appAuthAccess>In Cart</p>
+  <div class="white"></div>
+  <div class="image">
+    <img [src]="product.image" alt="product image">
+  </div>
+  <div>
+    <h2>{{product.name}}</h2>
+    <span>{{currency.currency}} {{calculatePrice(product.price)}}</span>
+  </div>
+</div>
+<ng-template class="card" #isInSearch>
+  <div class="card">
+    <i class="bi bi-plus-circle-fill" *appAuthAccess (click)="addToCart()"></i>
+    <p *appAuthAccess>In Cart</p>
+    <div class="white"></div>
+    <div class="image">
+      <img [src]="imageSrc" alt="product image">
+    </div>
+    <div>
+      <h2>{{name}}</h2>
+      <span>{{currency.currency}} {{calculatePrice(price)}}</span>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,63 @@
+<header>
+  <div class="search-container" [ngClass]="inputValueLength ? 'expanded' : null ">
+    <app-search-result [inputValueLength]="inputValueLength" [val]="val"></app-search-result>
+  </div>
+  <a routerLink="/" class="logo">
+    <img src="assets/images/nike.png">
+    <p>Nike</p>
+  </a>
+  <div class="nav-links">
+    <a routerLink="/products" routerLinkActive="active" class="">
+      <span></span>
+      Products
+    </a>
+  </div>
+  <input
+    type="search"
+    class="search"
+    placeholder="Search..."
+    aria-label="Search"
+    [ngModel]="searchInput"
+    (ngModelChange)="search($event)"
+    (keydown)="search($event)"
+    [ngModelOptions]="{standalone: true}"
+    (ngModelChange)="searchHandle($event)"
+  >
+  <div class="lang-cart-auth">
+    <div class="lang" (click)="changeLang($event)">
+      <img src="assets/images/united-kingdom.png">
+      <img *ngIf="lang.lang === 'eng'" src="assets/images/georgia.png">
+    </div>
+    <div class="currency" (click)="currency.setCurrency()">
+      <img *ngIf="currency.currency === '₾'" src="assets/images/coin.png">
+      <img *ngIf="currency.currency === '$'" src="assets/images/lari.png">
+    </div>
+    <div class="cart" *appAuthAccess>
+      <div class="cart-icon" #cartIcon (click)="cartToggle($event, 'cart')" (mouseenter)="enter()"
+           (mouseleave)="leave(cartContainer)">
+        <img src="assets/images/shopping-cart.png">
+        <div class="cart-badge">{{cartCount$ | async}}</div>
+      </div>
+      <div class="cart-container" #cartContainer (mouseenter)="enter()" (mouseleave)="leave(cartContainer)">
+        <app-cart [isCheckOutVisible]="false"></app-cart>
+        <a routerLink="/cart" class="cart">go to cart</a>
+      </div>
+    </div>
+
+    <ng-container *ngIf="userIsAuthenticated; else notAuthenticated">
+      <div class="dropdown">
+        <img src="https://github.com/mdo.png" #dropDownIcon alt="mdo"
+             (click)="cartToggle($event , 'dropDown')" (mouseenter)="enter()" (mouseleave)="leave(dropDownContainer)">
+        <div #dropDownContainer (mouseenter)="enter()" (mouseleave)="leave(dropDownContainer)">
+          <a routerLink="/manager">Content Manager</a>
+          <a routerLink="/orders">Orders</a>
+          <a (click)="signOut()">Sign out</a>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <ng-template #notAuthenticated>
+    <button routerLink="/auth/login" type="button" (click)="prevRouter()">Login</button>
+    <button routerLink="/auth/register" type="button">Sign-up</button>
+  </ng-template>
+</header>

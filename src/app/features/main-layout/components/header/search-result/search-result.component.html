@@ -1,0 +1,17 @@
+<div class="search-result">
+  <ng-container *ngIf="inputValueLength < 3; else searchResult.filteredProducts.length ? matches : noMatch">
+    <p class="templates">continue typing for some result...</p>
+  </ng-container>
+</div>
+<ng-template #matches>
+  <div>
+    <app-product-card [isInSearchContainer]="true" *ngFor="let item of searchResult.filteredProducts" [name]="item.name"
+                      [price]="item.price"
+                      [imageSrc]="item.image" [description]="item.description" [itemID]="item.id"
+                      [category]="item.category"></app-product-card>
+  </div>
+</ng-template>
+<ng-template #noMatch>
+  <p class="templates">Ups... Sorry we don't have <span>{{" " + val}}</span>.</p>
+</ng-template>
+
