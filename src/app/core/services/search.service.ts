@@ -15,13 +15,11 @@ export class SearchService {
   search(val: string, products: Product[]) {
     let filtered: Product[] = []
     this.products = products;
-    console.log(this.products)
     this.products.map((prod: any) => {
-      if (prod.name.includes(val)) {
+      if (prod.name.toUpperCase().includes(val.toUpperCase())) {
         filtered.push(prod)
       }
     })
     this.filteredProducts = filtered
-    console.log(this.filteredProducts)
   }
 }

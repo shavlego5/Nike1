@@ -8,13 +8,15 @@ import {CartModule} from "../../pages/cart/cart.module";
 import {SearchResultComponent} from './components/header/search-result/search-result.component';
 import {SharedModule} from "../../shared/shared.module";
 import {ProductCardModule} from "../product-card/product-card.module";
+import {SlideshowComponent} from './components/slideshow/slideshow.component';
 
 
 @NgModule({
   declarations: [
     MainLayoutComponent,
     HeaderComponent,
-    SearchResultComponent
+    SearchResultComponent,
+    SlideshowComponent
 
   ],
   imports: [
