@@ -6,14 +6,28 @@
   align-items: center;
   border-radius: 50px;
   border: 2px solid white;
-  background-color: rgba(#BDC3C7, .5);
+  position: relative;
   z-index: 100;
+
+  .blur {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(#273746, .5);
+    backdrop-filter: blur(10px);
+    border-radius: 50px;
+  }
 
   .templates {
     font-size: calc(100% + 1.5vw + 1.5vh);
+    color: white;
+    position: relative;
 
     span {
-      color: #BA4A00;
+      color: #F7DC6F;
       font-weight: bolder;
     }
   }

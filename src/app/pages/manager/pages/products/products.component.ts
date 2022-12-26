@@ -1,6 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {Category, Product} from "../../../../core/interfaces";
-import {CategoryService} from "../../../../core/services/category.service";
+import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {Product} from "../../../../core/interfaces";
 import {ProductsService} from "../../../../core/services";
 
 @Component({
@@ -8,7 +7,7 @@ import {ProductsService} from "../../../../core/services";
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit, AfterViewInit {
 
   products: Product[] = []
 
@@ -19,6 +18,14 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAll()
+  }
+
+  isLoaded: boolean = false;
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.isLoaded = true;
+    }, 100)
   }
 
 

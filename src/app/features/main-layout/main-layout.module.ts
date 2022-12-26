@@ -9,6 +9,7 @@ import {SearchResultComponent} from './components/header/search-result/search-re
 import {SharedModule} from "../../shared/shared.module";
 import {ProductCardModule} from "../product-card/product-card.module";
 import {SlideshowComponent} from './components/slideshow/slideshow.component';
+import {FooterComponent} from './components/footer/footer.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import {SlideshowComponent} from './components/slideshow/slideshow.component';
     MainLayoutComponent,
     HeaderComponent,
     SearchResultComponent,
-    SlideshowComponent
+    SlideshowComponent,
+    FooterComponent
 
   ],
   imports: [

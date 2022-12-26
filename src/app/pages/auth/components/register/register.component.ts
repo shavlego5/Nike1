@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, ValidatorFn, Validators} from "@angular/forms";
 import {AuthService} from "../../../../core/services";
 import {Router} from "@angular/router";
@@ -8,14 +8,14 @@ import {Router} from "@angular/router";
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements AfterViewInit {
 
   form: FormGroup = new FormGroup({
-    firstName: new FormControl('', Validators.required),
-    lastName: new FormControl('', Validators.required),
+    firstName: new FormControl('', [Validators.required, Validators.minLength(2)]),
+    lastName: new FormControl('', [Validators.required, Validators.minLength(2)]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', Validators.required),
-    confirmPassword: new FormControl('', Validators.required),
+    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    confirmPassword: new FormControl('', [Validators.required]),
   });
 
   constructor(
@@ -24,17 +24,25 @@ export class RegisterComponent implements OnInit {
   ) {
   }
 
-  ngOnInit(): void {
+  isLoaded: boolean = false;
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.isLoaded = true;
+    }, 100)
   }
 
   submit() {
     this.form.markAllAsTouched();
     if (this.form.invalid) return
 
-    console.log(this.form.value)
-
     this.authService.register(this.form.value).subscribe(res => {
       this.router.navigate(['/auth/login'])
     })
+  }
+
+  onFocus(event: any) {
+    const parent = event.currentTarget.parentNode;
+    parent.setAttribute("class", 'focus')
   }
 }

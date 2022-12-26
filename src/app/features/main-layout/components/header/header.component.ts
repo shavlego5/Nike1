@@ -1,19 +1,24 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {AuthService, CartService, ProductsService} from "../../../../core/services";
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {
+  AuthService,
+  CartService,
+  ProductsService,
+  LangService,
+  CurrencyService,
+  PrevRouterService,
+  SearchService
+} from "../../../../core/services";
 import {Observable, Subject, takeUntil} from "rxjs";
 import {Router} from "@angular/router";
-import {LangService} from "../../../../core/services";
-import {CurrencyService} from "../../../../core/services/currency.service";
-import {PrevRouterService} from "../../../../core/services/prev-router.service";
-import {SearchService} from "../../../../core/services/search.service";
 import {Product} from "../../../../core/interfaces";
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   cartCount$: Observable<number> = this.cartService.cartCount$;
   searchInput: any;
 
@@ -38,12 +43,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
     public currency: CurrencyService,
     private prevUrl: PrevRouterService,
     public searchService: SearchService,
-    private productsService: ProductsService,
+    private productsService: ProductsService
   ) {
   }
 
+  fullName?: string;
+
   ngOnInit(): void {
     this.getProducts()
+  }
+
+  ngAfterViewInit() {
+    let user: string | null = localStorage.getItem('user')!
+    this.fullName = JSON.parse(user).firstName + ' ' + JSON.parse(user).lastName;
   }
 
 
@@ -58,7 +70,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   search(event: any) {
     if (event.key == "Enter") {
-      this.router.navigate(['/products'], {queryParams: {search: event}})  //.then()
+      this.router.navigate(['/products'], {queryParams: {search: event.target.value}})  //.then()
+      this.inputValueLength = 0;
+      event.target.value = '';
+      event.target.blur()
     }
   }
 
@@ -111,5 +126,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.sub$.next(null)
     this.sub$.complete()
+  }
+
+  closeResult() {
+    setTimeout(() => {
+      this.inputValueLength = 0;
+    }, 500)
   }
 }

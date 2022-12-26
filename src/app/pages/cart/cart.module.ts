@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 
 import {CartRoutingModule} from './cart-routing.module';
 import {CartComponent} from './cart.component';
+import {MatIconModule} from "@angular/material/icon";
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import {CartComponent} from './cart.component';
   ],
   imports: [
     CommonModule,
-    CartRoutingModule
+    CartRoutingModule,
+    MatIconModule
   ]
 })
 export class CartModule {

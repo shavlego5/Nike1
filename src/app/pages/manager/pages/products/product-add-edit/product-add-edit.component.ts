@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ProductsService} from "../../../../../core/services";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -11,7 +11,7 @@ import {CategoryService} from "../../../../../core/services/category.service";
   templateUrl: './product-add-edit.component.html',
   styleUrls: ['./product-add-edit.component.scss']
 })
-export class ProductAddEditComponent implements OnInit {
+export class ProductAddEditComponent implements OnInit, AfterViewInit {
   form: FormGroup = new FormGroup({
     id: new FormControl(null),
     name: new FormControl('', Validators.required),
@@ -29,6 +29,14 @@ export class ProductAddEditComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router
   ) {
+  }
+
+  isLoaded: boolean = false;
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.isLoaded = true;
+    }, 100)
   }
 
   ngOnInit(): void {

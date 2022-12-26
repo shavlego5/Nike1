@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import {CartService, OrderService} from "../../core/services";
 import {Cart} from "../../core/interfaces/cart";
 
@@ -7,12 +7,13 @@ import {Cart} from "../../core/interfaces/cart";
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss']
 })
-export class CartComponent implements OnInit {
+export class CartComponent implements OnInit, AfterViewInit {
 
   @Input() isCheckOutVisible!: boolean;
 
   cartItems: Cart[] = []
   cartSum = 0
+  isLoaded: boolean = false;
 
   constructor(
     private cartService: CartService,
@@ -22,6 +23,12 @@ export class CartComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCarts()
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.isLoaded = true;
+    }, 100)
   }
 
 
@@ -36,20 +43,19 @@ export class CartComponent implements OnInit {
 
   removeItem(item: Cart) {
     this.cartService.deleteItem(item.id)
-      .pipe()
       .subscribe(() => {
         this.getCarts()
       })
   }
 
   checkout() {
-    console.log('checkout')
-
     this.orderService.createOrder()
-      .pipe()
       .subscribe(res => {
-        console.log(res)
         this.getCarts()
       })
   }
+
+  // ngOnDestroy(){
+  //   this.cartService.getCarts()
+  // }
 }

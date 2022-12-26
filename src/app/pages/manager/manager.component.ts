@@ -1,16 +1,17 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component} from '@angular/core';
 
 @Component({
   selector: 'app-manager',
   templateUrl: './manager.component.html',
   styleUrls: ['./manager.component.scss']
 })
-export class ManagerComponent implements OnInit {
+export class ManagerComponent implements AfterViewInit {
 
-  constructor() {
+  isLoaded: boolean = false;
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.isLoaded = true;
+    }, 100)
   }
-
-  ngOnInit(): void {
-  }
-
 }

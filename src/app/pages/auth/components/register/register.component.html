@@ -1,29 +1,49 @@
-<form [formGroup]="form" (ngSubmit)="submit()">
-  <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
-
-  <div class="form-floating my-3">
-    <input class="form-control" formControlName="firstName" id="firstName" placeholder="First Name">
-    <label for="firstName">First Name</label>
+<div class="sign-up">
+  <div class="container"
+       [ngStyle]="isLoaded ? {'opacity': 1, 'margin-top' : '0px'} : {'opacity': 0, 'margin-top' : '150px'}">
+    <div class="blur"></div>
+    <div class="sign-up">
+      <h2>Sign Up</h2>
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <section>
+          <input type="text" formControlName="firstName" (focus)="onFocus($event)">
+          <p>type your first name<span *ngIf="form.get('firstName')?.invalid && form.get('firstName')?.touched"> - Must contain at least 2 letters</span>
+          </p>
+          <mat-icon>text_rotation_none</mat-icon>
+        </section>
+        <section>
+          <input type="text" formControlName="lastName" (focus)="onFocus($event)">
+          <p>type your last name<span *ngIf="form.get('lastName')?.invalid && form.get('lastName')?.touched"> - Must contain at least 2 letters</span>
+          </p>
+          <mat-icon>text_rotation_none</mat-icon>
+        </section>
+        <section>
+          <input type="text" formControlName="email" (focus)="onFocus($event)">
+          <p>type your email<span *ngIf="form.get('email')?.invalid && form.get('email')?.touched"> - Please, enter valid email format</span>
+          </p>
+          <mat-icon>alternate_email</mat-icon>
+        </section>
+        <section>
+          <input type="password" formControlName="password" (focus)="onFocus($event)">
+          <p>type your password<span *ngIf="form.get('password')?.invalid && form.get('password')?.touched"> - Must contain at least 6 symbol</span>
+          </p>
+          <mat-icon>lock</mat-icon>
+        </section>
+        <section>
+          <input type="password" formControlName="confirmPassword" (focus)="onFocus($event)">
+          <p class="confirm">confirm password</p>
+          <mat-icon>lock</mat-icon>
+        </section>
+        <button type="submit" [disabled]="!form.invalid">sign up<span></span></button>
+      </form>
+      <span>or sign up using</span>
+      <div>
+        <img [src]="'assets/images/facebook.png'" alt="r">
+        <img src="assets/images/twitter.png" alt="t">
+        <img src="assets/images/google-plus.png" alt="f">
+      </div>
+    </div>
+    <span style="margin-top: 30px">Have an account?</span>
+    <p routerLink="/auth/login">sign in</p>
   </div>
-
-  <div class="form-floating my-3">
-    <input class="form-control" formControlName="lastName" id="lastName" placeholder="Last Name">
-    <label for="lastName">Last Name</label>
-  </div>
-
-
-  <div class="form-floating my-3">
-    <input type="email" class="form-control" formControlName="email" id="email" placeholder="name@example.com">
-    <label for="email">Email address</label>
-  </div>
-  <div class="form-floating my-3">
-    <input type="password" class="form-control" formControlName="password" id="floatingPassword" placeholder="Password">
-    <label for="floatingPassword">Password</label>
-  </div>
-  <div class="form-floating my-3">
-    <input type="password" class="form-control" formControlName="confirmPassword" id="confirmPassword"
-           placeholder="confirmPassword">
-    <label for="confirmPassword">Confirm Password</label>
-  </div>
-  <button class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
-</form>
+</div>

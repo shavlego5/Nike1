@@ -1,4 +1,6 @@
-<table class="table">
+<h1 [ngStyle]="isLoaded ? {'opacity': 1, 'margin-top' : '50px'} : {'opacity': 0, 'margin-top' : '150px'}">orders</h1>
+<table class="orders"
+       [ngStyle]="isLoaded ? {'opacity': 1, 'margin-top' : '50px'} : {'opacity': 0, 'margin-top' : '150px'}">
   <thead>
   <tr>
     <th>Order Date</th>

@@ -1,23 +1,25 @@
-<div class="p-2 d-flex justify-content-end">
-  <button routerLink="/manager/categories/create" class="btn btn-primary">Add</button>
-</div>
-
-<table class="table">
+<table class="categories">
   <thead>
   <tr>
     <th>#</th>
     <th>Name</th>
-    <th></th>
+    <th>Edit</th>
+    <th>Delete</th>
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let item of categories">
-    <td>{{item?.id}}</td>
+  <tr *ngFor="let item of categories; let i  = index">
+    <td>{{i + 1}}</td>
     <td>{{item?.name}}</td>
     <td>
-      <button class="btn btn-secondary mr-2" [routerLink]="['/manager/categories/edit', item.id]">Edit</button>
-      <button class="btn btn-danger" (click)="deleteItem(item.id)">Remove</button>
+      <mat-icon style="color: green" [routerLink]="['/manager/categories/edit', item.id]">edit</mat-icon>
+    </td>
+    <td>
+      <mat-icon style="color: red" (click)="deleteItem(item.id)">delete_forever</mat-icon>
     </td>
   </tr>
   </tbody>
 </table>
+
+<button routerLink="/manager/categories/create">Add Category</button>
+

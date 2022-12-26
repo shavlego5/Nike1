@@ -1,14 +1,31 @@
-<form [formGroup]="form" (ngSubmit)="submit()">
-  <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
-
-  <div class="form-floating my-3">
-    <input type="email" class="form-control" formControlName="email" id="floatingInput" placeholder="name@example.com">
-    <label for="floatingInput">Email address</label>
+<div class="login">
+  <div class="container"
+       [ngStyle]="isLoaded ? {'opacity': 1, 'margin-top' : '0px'} : {'opacity': 0, 'margin-top' : '150px'}">
+    <div class="blur"></div>
+    <div class="login">
+      <h2>login</h2>
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <section>
+          <input type="text" formControlName="email" (focus)="onFocus($event)" (blur)="onBlur($event)">
+          <p>type your username</p>
+          <mat-icon>person_outline</mat-icon>
+        </section>
+        <section>
+          <input type="password" formControlName="password" (focus)="onFocus($event)" (blur)="onBlur($event)">
+          <p>type your password</p>
+          <mat-icon>lock</mat-icon>
+        </section>
+        <p>forgot password?</p>
+        <button type="submit">login<span></span></button>
+      </form>
+      <span>or sign in using</span>
+      <div>
+        <img [src]="'assets/images/facebook.png'" alt="r">
+        <img src="assets/images/twitter.png" alt="t">
+        <img src="assets/images/google-plus.png" alt="f">
+      </div>
+    </div>
+    <span>Need an account?</span>
+    <p routerLink="/auth/register">sign up</p>
   </div>
-  <div class="form-floating my-3">
-    <input type="password" class="form-control" formControlName="password" id="floatingPassword" placeholder="Password">
-    <label for="floatingPassword">Password</label>
-  </div>
-
-  <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-</form>
+</div>

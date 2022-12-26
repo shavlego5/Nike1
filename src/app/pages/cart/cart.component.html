@@ -1,8 +1,11 @@
-<div>
+<div class="cart" [ngStyle]="isCheckOutVisible === false ? {width: '100%'} : null"
+     [ngStyle]="isLoaded ? {'opacity': 1, 'margin-top' : '0px'} : {'opacity': 0, 'margin-top' : '150px'}">
+  <h1 *ngIf="isCheckOutVisible === false ? false : true">Cart</h1>
   <div>
     <table class="table">
       <thead>
       <tr>
+        <th *ngIf="isCheckOutVisible === false ? false : true"></th>
         <th>Product</th>
         <th>Price</th>
         <th>Quantity</th>
@@ -12,12 +15,15 @@
       </thead>
       <tbody>
       <tr *ngFor="let item of cartItems">
+        <td *ngIf="isCheckOutVisible === false ? false : true">
+          <img src="{{item.item.image}}">
+        </td>
         <td>{{item.item.name}}</td>
-        <td>{{item.item.cost}}</td>
+        <td>{{item.item.price}}</td>
         <td>{{item.quantity}}</td>
         <td>{{item.total}}</td>
         <td>
-          <button class="btn btn-danger" (click)="removeItem(item)">Remove</button>
+          <mat-icon style="color: red" (click)="removeItem(item)">delete_forever</mat-icon>
         </td>
       </tr>
       </tbody>
@@ -26,7 +32,7 @@
 
   <div>
     <h3>Total Price: {{cartSum}}</h3>
-    <button class="btn btn-success" *ngIf="isCheckOutVisible" (click)="checkout()">Checkout</button>
+    <button *ngIf="isCheckOutVisible === false ? false : true" (click)="checkout()">Checkout</button>
   </div>
 </div>
 

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {ProductsService} from "../../core/services";
 import {Category, Product} from "../../core/interfaces";
 import {CategoryService} from "../../core/services/category.service";
@@ -10,7 +10,8 @@ import {ActivatedRoute} from "@angular/router";
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit, AfterViewInit {
+  isLoaded: boolean = false;
   products: Product[] = []
   categoryId?: number
 
@@ -32,6 +33,12 @@ export class ProductsComponent implements OnInit {
     })
   }
 
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.isLoaded = true;
+    }, 100)
+  }
+
 
   getProducts() {
     const params = {
@@ -47,7 +54,7 @@ export class ProductsComponent implements OnInit {
 
   searchHandle(search: string) {
 
-    if (search.length > 3) {
+    if (search.length > 2) {
       this.search = search
       this.getProducts()
     } else {

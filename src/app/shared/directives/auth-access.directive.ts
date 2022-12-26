@@ -20,13 +20,4 @@ export class AuthAccessDirective implements AfterViewInit {
       this.container.createEmbeddedView(this.template)
     }
   }
-
-  // func(){
-  //   if (!this.authService.token) {
-  //     this.container.clear()
-  //   } else {
-  //     this.container.createEmbeddedView(this.template)
-  //   }
-  // }
-
 }

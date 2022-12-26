@@ -5,6 +5,7 @@ import {CategoriesRoutingModule} from './categories-routing.module';
 import {CategoriesComponent} from './categories.component';
 import {CategoryAddEditComponent} from './category-add-edit/category-add-edit.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import {MatIconModule} from "@angular/material/icon";
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {ReactiveFormsModule} from "@angular/forms";
   imports: [
     CommonModule,
     CategoriesRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatIconModule
   ]
 })
 export class CategoriesModule {

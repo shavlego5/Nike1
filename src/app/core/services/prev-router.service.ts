@@ -8,6 +8,10 @@ export class PrevRouterService {
   prevUrl: string = '/'
 
   prevRouter(url: string) {
-    this.prevUrl = url;
+    if (url === '/auth/register') {
+      this.prevUrl = '/';
+    } else {
+      this.prevUrl = url;
+    }
   }
 }

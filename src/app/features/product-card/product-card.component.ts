@@ -2,6 +2,7 @@ import {Component, ElementRef, Input} from '@angular/core';
 import {Product} from "../../core/interfaces";
 import {CartService} from "../../core/services";
 import {CurrencyService} from "../../core/services/currency.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-product-card',
@@ -20,9 +21,16 @@ export class ProductCardComponent {
   @Input('category') category!: Object;
   @Input('isInSearchContainer') isInSearchContainer!: boolean;
 
+  @Input('preview') prev!: any;
+
+  @Input('name1') name1?: any;
+  @Input('imageSrc1') imageSrc1?: any;
+  @Input('price1') price1?: any;
+
   constructor(
     private cartService: CartService,
-    public currency: CurrencyService
+    public currency: CurrencyService,
+    private router: Router
   ) {
   }
 
@@ -35,5 +43,12 @@ export class ProductCardComponent {
       productId: this.product.id,
       quantity: 1
     }).subscribe()
+  }
+
+  noRoute(event: any, id: any) {
+    event.preventDefault();
+    if (!event.target.classList.contains('bi-plus-circle-fill')) {
+      this.router.navigate(['/products'], id)
+    }
   }
 }

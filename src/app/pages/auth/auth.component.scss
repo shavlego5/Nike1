@@ -1,12 +1,7 @@
 .auth-layout {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: #fff;
-  border-radius: 4px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 400px;
-  margin: 50px auto;
-  padding: 15px;
+  margin-top: -21px;
+  width: 100%;
+  height: 100vh;
+  background: url(./../../../assets/images/glenna-haug-CkRJCFPzYnA-unsplash.jpg) no-repeat fixed;
+  background-size: cover;
 }

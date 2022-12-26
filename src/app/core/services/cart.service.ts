@@ -34,7 +34,7 @@ export class CartService extends BaseService {
   }
 
   deleteItem(id: number): Observable<any> {
-    return this.delete(`cart/${id}`);
+    return this.delete(`cart/${id}`)
   }
 
   container!: any;
@@ -55,12 +55,16 @@ export class CartService extends BaseService {
   toggleCart: boolean = false;
   toggleDropDown: boolean = false;
 
+  fromDetails() {
+    this.toggleCart = true;
+  }
+
   cartToggle(icon: any, container: any, cartIcon: any, item: string) {
     this.item = item;
     if (item === 'cart') {
       this.container = container;
       this.toggleDropDown = false
-      this.dropContainer.nativeElement.classList.remove('visible')
+      this.dropContainer?.nativeElement.classList.remove('visible')
       if (!this.toggleCart) {
         container.nativeElement.classList.add('visible')
         this.toggleCart = true
@@ -76,7 +80,7 @@ export class CartService extends BaseService {
     } else if (item === 'dropDown') {
       this.dropContainer = container;
       this.toggleCart = false
-      this.container.nativeElement.classList.remove('visible')
+      this.container?.nativeElement.classList.remove('visible')
       if (!this.toggleDropDown) {
         container.nativeElement.classList.add('visible')
         this.toggleDropDown = true
@@ -94,13 +98,23 @@ export class CartService extends BaseService {
 
   }
 
+  entered: boolean = true;
+
   enter() {
     document.removeEventListener('click', this.checkIfClickedOnContainer)
+
+    if (this.entered) {
+      this.entered = false;
+    }
   }
 
   leave(cartContainer: any) {
     if (cartContainer.classList.contains('visible')) {
       document.addEventListener('click', this.checkIfClickedOnContainer)
+    }
+    this.entered = true;
+    if (!this.entered) {
+      cartContainer.classList.remove('visible');
     }
   }
 }

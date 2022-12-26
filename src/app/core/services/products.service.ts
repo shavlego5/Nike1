@@ -12,13 +12,12 @@ export class ProductsService extends BaseService {
     categoryId?: number | null,
     limit?: number,
     search?: string,
+    similar?: string
   }): Observable<Product[]> {
-    console.log(this.get<Product[]>('product', params))
     return this.get<Product[]>('product', params)
   }
 
   getOne(id: string): Observable<Product> {
-    console.log(this.get<Product>(`product/${id}`))
     return this.get<Product>(`product/${id}`);
   }
 

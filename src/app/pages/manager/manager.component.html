@@ -1,12 +1,15 @@
-<div class="d-flex gap-4">
-  <div class="sidebar">
-    <div class="list-group">
-      <a routerLink="/manager/products" routerLinkActive="active" class="list-group-item list-group-item-action">Products</a>
-      <a routerLink="/manager/categories" routerLinkActive="active" class="list-group-item list-group-item-action">Categories</a>
+<div class="manager"
+     [ngStyle]="isLoaded ? {'opacity': 1, 'margin-top' : '0px'} : {'opacity': 0, 'margin-top' : '150px'}">
+  <h1>
+    Content Manager
+  </h1>
+  <div class="container">
+    <div>
+      <a routerLink="/manager/products" routerLinkActive="active">Products</a>
+      <a routerLink="/manager/categories" routerLinkActive="active">Categories</a>
     </div>
-  </div>
-
-  <div class="flex-fill">
-    <router-outlet></router-outlet>
+    <div>
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>

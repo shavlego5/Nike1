@@ -1,10 +1,10 @@
 <header>
+  <div class="blur"></div>
   <div class="search-container" [ngClass]="inputValueLength ? 'expanded' : null ">
     <app-search-result [inputValueLength]="inputValueLength" [val]="val"></app-search-result>
   </div>
   <a routerLink="/" class="logo">
     <img src="assets/images/nike.png">
-    <p>Nike</p>
   </a>
   <div class="nav-links">
     <a routerLink="/products" routerLinkActive="active" class="">
@@ -12,33 +12,36 @@
       Products
     </a>
   </div>
-  <input
-    type="search"
-    class="search"
-    placeholder="Search..."
-    aria-label="Search"
-    [ngModel]="searchInput"
-    (ngModelChange)="search($event)"
-    (keydown)="search($event)"
-    [ngModelOptions]="{standalone: true}"
-    (ngModelChange)="searchHandle($event)"
-  >
+
   <div class="lang-cart-auth">
-    <div class="lang" (click)="changeLang($event)">
-      <img src="assets/images/united-kingdom.png">
-      <img *ngIf="lang.lang === 'eng'" src="assets/images/georgia.png">
-    </div>
+    <input
+      type="search"
+      class="search"
+      placeholder="Search..."
+      aria-label="Search"
+      [ngModel]="searchInput"
+      (ngModelChange)="search($event)"
+      (keydown)="search($event)"
+      [ngModelOptions]="{standalone: true}"
+      (ngModelChange)="searchHandle($event)"
+      (blur)="closeResult()"
+    >
+    <!--    <div class="lang" (click)="changeLang($event)">-->
+    <!--      <img src="assets/images/united-kingdom.png">-->
+    <!--      <img *ngIf="lang.lang === 'eng'" src="assets/images/georgia.png">-->
+    <!--    </div>-->
     <div class="currency" (click)="currency.setCurrency()">
       <img *ngIf="currency.currency === '₾'" src="assets/images/coin.png">
       <img *ngIf="currency.currency === '$'" src="assets/images/lari.png">
     </div>
-    <div class="cart" *appAuthAccess>
+    <div class="cart" *ngIf="userIsAuthenticated">
       <div class="cart-icon" #cartIcon (click)="cartToggle($event, 'cart')" (mouseenter)="enter()"
            (mouseleave)="leave(cartContainer)">
         <img src="assets/images/shopping-cart.png">
         <div class="cart-badge">{{cartCount$ | async}}</div>
       </div>
-      <div class="cart-container" #cartContainer (mouseenter)="enter()" (mouseleave)="leave(cartContainer)">
+      <div id="cartContainer" class="cart-container" #cartContainer (mouseenter)="enter()"
+           (mouseleave)="leave(cartContainer)">
         <app-cart [isCheckOutVisible]="false"></app-cart>
         <a routerLink="/cart" class="cart">go to cart</a>
       </div>
@@ -49,6 +52,7 @@
         <img src="https://github.com/mdo.png" #dropDownIcon alt="mdo"
              (click)="cartToggle($event , 'dropDown')" (mouseenter)="enter()" (mouseleave)="leave(dropDownContainer)">
         <div #dropDownContainer (mouseenter)="enter()" (mouseleave)="leave(dropDownContainer)">
+          <span>{{fullName}}</span>
           <a routerLink="/manager">Content Manager</a>
           <a routerLink="/orders">Orders</a>
           <a (click)="signOut()">Sign out</a>
@@ -58,6 +62,5 @@
   </div>
   <ng-template #notAuthenticated>
     <button routerLink="/auth/login" type="button" (click)="prevRouter()">Login</button>
-    <button routerLink="/auth/register" type="button">Sign-up</button>
   </ng-template>
 </header>

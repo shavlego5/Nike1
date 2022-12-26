@@ -1,6 +1,7 @@
-<div *ngIf="product && !isInSearchContainer; else isInSearch" class="card">
+<div *ngIf="product && !isInSearchContainer && !prev; else prev ? preview : isInSearch" class="card"
+     (click)="noRoute($event, product.id)">
   <i class="bi bi-plus-circle-fill" *appAuthAccess (click)="addToCart()"></i>
-  <p *appAuthAccess>In Cart</p>
+  <!--  <p *appAuthAccess>In Cart</p>-->
   <div class="white"></div>
   <div class="image">
     <img [src]="product.image" alt="product image">
@@ -11,9 +12,9 @@
   </div>
 </div>
 <ng-template class="card" #isInSearch>
-  <div class="card">
+  <div class="card" (click)="noRoute($event, product.id)">
     <i class="bi bi-plus-circle-fill" *appAuthAccess (click)="addToCart()"></i>
-    <p *appAuthAccess>In Cart</p>
+    <!--    <p *appAuthAccess>In Cart</p>-->
     <div class="white"></div>
     <div class="image">
       <img [src]="imageSrc" alt="product image">
@@ -21,6 +22,20 @@
     <div>
       <h2>{{name}}</h2>
       <span>{{currency.currency}} {{calculatePrice(price)}}</span>
+    </div>
+  </div>
+</ng-template>
+<ng-template class="card" #preview>
+  <div class="card">
+    <i class="bi bi-plus-circle-fill" *appAuthAccess></i>
+    <!--    <p *appAuthAccess>In Cart</p>-->
+    <div class="white"></div>
+    <div class="image">
+      <img *ngIf="imageSrc1" [src]="imageSrc1" alt="product image">
+    </div>
+    <div>
+      <h2 *ngIf="name1">{{name1}}</h2>
+      <span *ngIf="price1">{{currency.currency}} {{calculatePrice(price1)}}</span>
     </div>
   </div>
 </ng-template>

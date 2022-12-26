@@ -40,7 +40,6 @@ export class AuthService extends BaseService {
 
   setUser(user: User): void {
     localStorage.setItem('user', JSON.stringify(user));
-
   }
 
   signOut() {
