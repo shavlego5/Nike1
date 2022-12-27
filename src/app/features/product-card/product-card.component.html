@@ -1,6 +1,7 @@
 <div *ngIf="product && !isInSearchContainer && !prev; else prev ? preview : isInSearch" class="card"
-     (click)="noRoute($event, product.id)">
-  <i class="bi bi-plus-circle-fill" *appAuthAccess (click)="addToCart()"></i>
+     [routerLink]="['/products', product.id]">
+  <!--   (click)="noRoute($event, product.id)"-->
+  <i class="bi bi-plus-circle-fill" *appAuthAccess (click)="addToCart($event)"></i>
   <!--  <p *appAuthAccess>In Cart</p>-->
   <div class="white"></div>
   <div class="image">
@@ -12,8 +13,9 @@
   </div>
 </div>
 <ng-template class="card" #isInSearch>
-  <div class="card" (click)="noRoute($event, product.id)">
-    <i class="bi bi-plus-circle-fill" *appAuthAccess (click)="addToCart()"></i>
+  <div class="card" [routerLink]="['/products', product.id]">
+    <!--    (click)="noRoute($event, product.id)"-->
+    <i class="bi bi-plus-circle-fill" *appAuthAccess (click)="addToCart($event)"></i>
     <!--    <p *appAuthAccess>In Cart</p>-->
     <div class="white"></div>
     <div class="image">

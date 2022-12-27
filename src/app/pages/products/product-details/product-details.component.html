@@ -1,0 +1,24 @@
+<div class="details"
+     [ngStyle]="isLoaded ? {'opacity': 1, 'margin-top' : '50px'} : {'opacity': 0, 'margin-top' : '150px'}">
+  <div class="image">
+    <img [src]="product.image" width="300px"/>
+  </div>
+  <div class="descriptions">
+    <h1>{{product.name}}</h1>
+    <h3>{{product.price}}</h3>
+    <div class="count">
+      <div>
+        <button type="button" (click)="decrement()" #decrements [disabled]="disabled">-</button>
+        <input type="number" [(ngModel)]="quantity" min="0"/>
+        <button type="button" (click)="increment()">+</button>
+      </div>
+      <button (click)="addToCart()">Add to cart</button>
+    </div>
+    <div [innerText]="product.description"></div>
+    <div>
+      <div *ngIf="message" class="alert alert-success">
+        {{message}}
+      </div>
+    </div>
+  </div>
+</div>

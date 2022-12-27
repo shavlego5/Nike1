@@ -38,17 +38,20 @@ export class ProductCardComponent {
     return Math.floor(price * this.currency.dollarToLari * 100) / 100
   }
 
-  addToCart() {
+  addToCart(event: any) {
+    event.stopPropagation();
     this.cartService.addToCart({
       productId: this.product.id,
       quantity: 1
     }).subscribe()
   }
 
-  noRoute(event: any, id: any) {
-    event.preventDefault();
-    if (!event.target.classList.contains('bi-plus-circle-fill')) {
-      this.router.navigate(['/products'], id)
-    }
-  }
+  // noRoute(event: any, id: any) {
+  //   event.preventDefault();
+  //   console.log(event.target)
+  //   if (!event.target.classList.contains('bi-plus-circle-fill')) {
+  //     this.router.navigate(['/products'], id).then()
+  //     console.log(id)
+  //   }
+  // }
 }
